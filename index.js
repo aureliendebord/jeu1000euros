@@ -58,7 +58,7 @@ Aurélien Debord
 http
   .createServer((request, response) => {
     cron.schedule(
-      "34 21 * * *",
+      "43 21 * * *",
       () => {
         allQuestions.firstPage((error, records) => {
           let questions = records.map((record) => record._rawJson);
