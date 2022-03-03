@@ -1,3 +1,4 @@
+var cron = require("node-cron");
 const airtable = require("airtable");
 const sgMail = require("@sendgrid/mail");
 
@@ -53,12 +54,19 @@ Aurélien Debord
       console.error(error);
     });
 };
+cron.schedule(
+  "21 30 * * *",
+  () => {
+    allQuestions.firstPage((error, records) => {
+      let questions = records.map((record) => record._rawJson);
+      let questionsFilter = questions.filter(
+        (question) => question.fields.Status === "A envoyer"
+      );
 
-allQuestions.firstPage((error, records) => {
-  let questions = records.map((record) => record._rawJson);
-  let questionsFilter = questions.filter(
-    (question) => question.fields.Status === "A envoyer"
-  );
-
-  sendMail(questionsFilter[0]);
-});
+      sendMail(questionsFilter[0]);
+    });
+  },
+  {
+    timezone: "Europe/Paris",
+  }
+);
