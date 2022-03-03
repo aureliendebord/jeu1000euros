@@ -8,11 +8,18 @@ const base = airtable.base(`${process.env.AIRTABLE_BASE}`);
 const questionsBase = base("Questions");
 const allQuestions = questionsBase.select({ view: "Grid view" });
 const updateRecord = (record) => {
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  let yyyy = today.getFullYear();
+  let sendDate = `${mm}/${dd}/${yyyy}`;
+  console.log(sendDate);
   base("Questions").update([
     {
       id: record.id,
       fields: {
         Status: "Envoyé",
+        Date: sendDate,
       },
     },
   ]);
@@ -55,23 +62,20 @@ Aurélien Debord
       console.error(error);
     });
 };
-http
-  .createServer((request, response) => {
-    cron.schedule(
-      "48 21 * * *",
-      () => {
-        allQuestions.firstPage((error, records) => {
-          let questions = records.map((record) => record._rawJson);
-          let questionsFilter = questions.filter(
-            (question) => question.fields.Status === "A envoyer"
-          );
+cron.schedule(
+  "09 22 * * *",
+  () => {
+    console.log("launching cron");
+    allQuestions.firstPage((error, records) => {
+      let questions = records.map((record) => record._rawJson);
+      let questionsFilter = questions.filter(
+        (question) => question.fields.Status === "A envoyer"
+      );
 
-          sendMail(questionsFilter[0]);
-        });
-      },
-      {
-        timezone: "Europe/Paris",
-      }
-    );
-  })
-  .listen(process.env.PORT || 8081);
+      sendMail(questionsFilter[0]);
+    });
+  },
+  {
+    timezone: "Europe/Paris",
+  }
+);
