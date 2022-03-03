@@ -35,7 +35,7 @@ Aurélien Debord
 `;
 
   let msg = {
-    to: `marie.m.debord@gmail.com`,
+    to: `${process.env.RECIPIENT}`,
     from: `${process.env.SENDER}`,
     subject: `Nouvelle question - ${fields.Sujet}`,
     text: text,
