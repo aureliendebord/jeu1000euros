@@ -55,7 +55,7 @@ Aurélien Debord
     });
 };
 cron.schedule(
-  "33 21 * * *",
+  "34 21 * * *",
   () => {
     allQuestions.firstPage((error, records) => {
       let questions = records.map((record) => record._rawJson);
