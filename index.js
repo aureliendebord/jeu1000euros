@@ -63,7 +63,7 @@ Aurélien Debord
     });
 };
 cron.schedule(
-  "09 22 * * *",
+  "07 09 * * *",
   () => {
     console.log("launching cron");
     allQuestions.firstPage((error, records) => {
