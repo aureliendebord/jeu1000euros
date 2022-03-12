@@ -1,7 +1,11 @@
-const http = require("http");
-var cron = require("node-cron");
+const cron = require("node-cron");
+const express = require("express");
 const airtable = require("airtable");
 const sgMail = require("@sendgrid/mail");
+
+var app = express();
+
+app.set("port", process.env.PORT || 5000);
 
 const base = airtable.base(`${process.env.AIRTABLE_BASE}`);
 
@@ -63,7 +67,7 @@ Aurélien Debord
     });
 };
 cron.schedule(
-  "07 09 * * *",
+  "* * * * *",
   () => {
     console.log("launching cron");
     allQuestions.firstPage((error, records) => {
