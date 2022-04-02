@@ -5,7 +5,7 @@ const sgMail = require("@sendgrid/mail");
 
 var app = express();
 
-app.set("port", process.env.PORT || 5000);
+app.set("port", process.env.PORT);
 
 const base = airtable.base(`${process.env.AIRTABLE_BASE}`);
 
@@ -67,7 +67,8 @@ Aurélien Debord
     });
 };
 cron.schedule(
-  "00 18 * * *",
+  //"00 18 * * *"
+  "5 * * * *",
   () => {
     console.log("launching cron");
     allQuestions.firstPage((error, records) => {
