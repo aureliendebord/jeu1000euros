@@ -5,8 +5,6 @@ const sgMail = require("@sendgrid/mail");
 
 var app = express();
 
-app.set("port", process.env.PORT);
-
 const base = airtable.base(`${process.env.AIRTABLE_BASE}`);
 
 const questionsBase = base("Questions");
@@ -88,3 +86,5 @@ cron.schedule(
 app.get("/", function (req, res) {
   res.sendFile("default.html", { root: __dirname + "/relative_path_of_file" });
 });
+
+app.listen(process.env.PORT, () => console.log("listening..."));
