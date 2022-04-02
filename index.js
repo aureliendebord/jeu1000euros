@@ -68,7 +68,7 @@ Aurélien Debord
 };
 cron.schedule(
   //"00 18 * * *"
-  "5 * * * *",
+  "40 * * * *",
   () => {
     console.log("launching cron");
     allQuestions.firstPage((error, records) => {
