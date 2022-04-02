@@ -48,8 +48,7 @@ Aurélien Debord
 
   let msg = {
     to: `${process.env.RECIPIENT}`,
-    from: `${process.env.SENDER}`,
-    fromname: "Aurélien Debord",
+    from: `Aurélien Debord <${process.env.SENDER}>`,
     subject: `Nouvelle question - ${fields.Sujet}`,
     text: text,
   };
@@ -68,7 +67,7 @@ Aurélien Debord
 };
 cron.schedule(
   //"00 18 * * *"
-  "40 * * * *",
+  "25 * * * *",
   () => {
     console.log("launching cron");
     allQuestions.firstPage((error, records) => {
