@@ -83,3 +83,7 @@ cron.schedule(
     timezone: "Europe/Paris",
   }
 );
+
+app.get("/", function (req, res) {
+  res.sendFile("default.html", { root: __dirname + "/relative_path_of_file" });
+});
