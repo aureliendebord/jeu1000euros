@@ -32,7 +32,7 @@ const sendMail = (record) => {
   let text = `
 Bonjour,
 
-Voici notre question pour nos participant.e.s du jour:
+Voici ma question pour nos participant.e.s du jour:
 
 ${fields.Question}
 
@@ -48,6 +48,7 @@ Aurélien Debord
   let msg = {
     to: `${process.env.RECIPIENT}`,
     from: `${process.env.SENDER}`,
+    fromname: "Aurélien Debord",
     subject: `Nouvelle question - ${fields.Sujet}`,
     text: text,
   };
