@@ -84,7 +84,9 @@ cron.schedule(
 );
 
 app.get("/", function (req, res) {
-  res.sendFile("default.html", { root: __dirname + "/relative_path_of_file" });
+  res.sendFile(path.join(__dirname, "/index.html"));
 });
 
-app.listen(process.env.PORT, () => console.log("listening..."));
+app.listen(process.env.PORT, () =>
+  console.log(`listening port : ${process.env.PORT}`)
+);
